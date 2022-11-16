@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/GMRT-Plugin/resources/font/RobotoMono_12.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GMRT-Plugin/src/scenes/GMTRTMainButton/GMTRTMainButton.gd" type="Script" id=2]
 
 [node name="GMRTMainButton" type="Control"]
 anchor_right = 0.0585938
 anchor_bottom = 0.0333333
 rect_min_size = Vector2( 60, 0 )
+script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
