@@ -1,12 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/GMRT-Plugin/resources/font/RobotoMono_12.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GMRT-Plugin/resources/font/RobotoMono_10.tres" type="DynamicFont" id=2]
 
-[node name="mainview" type="ColorRect"]
+[node name="mainview" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 200, 0 )
-color = Color( 0.0901961, 0.0862745, 0.109804, 1 )
+rect_min_size = Vector2( 350, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -20,3 +20,364 @@ margin_bottom = 17.0
 custom_fonts/font = ExtResource( 1 )
 text = "GMRT - Plugin"
 align = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 21.0
+margin_right = 1024.0
+margin_bottom = 25.0
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+margin_top = 29.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="Status" type="Tabs" parent="VBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Status"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+scroll_horizontal_enabled = false
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer"]
+margin_right = 1016.0
+margin_bottom = 453.0
+size_flags_horizontal = 3
+
+[node name="container" type="VBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer"]
+margin_left = 380.0
+margin_right = 636.0
+margin_bottom = 453.0
+custom_constants/separation = 20
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 256.0
+margin_bottom = 5.0
+custom_constants/separation = 5
+
+[node name="base_viewport" type="VBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 25.0
+margin_right = 256.0
+margin_bottom = 117.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/base_viewport"]
+margin_right = 256.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/base_viewport/HBoxContainer"]
+margin_top = 13.0
+margin_right = 168.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "Project base viewport size"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/base_viewport/HBoxContainer"]
+margin_left = 172.0
+margin_right = 176.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/base_viewport/HBoxContainer"]
+margin_left = 180.0
+margin_right = 256.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/base_viewport"]
+margin_top = 44.0
+margin_right = 256.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, a square base viewport should be used, this helps fonts and overall scale"
+valign = 1
+autowrap = true
+
+[node name="strech_mode" type="VBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 137.0
+margin_right = 256.0
+margin_bottom = 229.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode"]
+margin_right = 256.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode/HBoxContainer"]
+margin_top = 13.0
+margin_right = 168.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "Project Strech Mode"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode/HBoxContainer"]
+margin_left = 172.0
+margin_right = 176.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode/HBoxContainer"]
+margin_left = 180.0
+margin_right = 256.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode"]
+margin_top = 44.0
+margin_right = 256.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, a 2D strech mode helps scale the output acording the defined ratio."
+valign = 1
+autowrap = true
+
+[node name="strech_aspect" type="VBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 249.0
+margin_right = 256.0
+margin_bottom = 341.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_aspect"]
+margin_right = 256.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_aspect/HBoxContainer"]
+margin_top = 13.0
+margin_right = 168.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "Project Strech Aspect"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_aspect/HBoxContainer"]
+margin_left = 172.0
+margin_right = 176.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_aspect/HBoxContainer"]
+margin_left = 180.0
+margin_right = 256.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_aspect"]
+margin_top = 44.0
+margin_right = 256.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, expand aspect allow the viewport output size to change acording the windo"
+valign = 1
+autowrap = true
+
+[node name="strech_mode3" type="VBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 361.0
+margin_right = 256.0
+margin_bottom = 453.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode3"]
+margin_right = 256.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode3/HBoxContainer"]
+margin_top = 13.0
+margin_right = 168.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "Project Strech Mode"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode3/HBoxContainer"]
+margin_left = 172.0
+margin_right = 176.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode3/HBoxContainer"]
+margin_left = 180.0
+margin_right = 256.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode3"]
+margin_top = 44.0
+margin_right = 256.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, a 2D strech mode helps scale the output acording the defined ratio."
+valign = 1
+autowrap = true
+
+[node name="View" type="Tabs" parent="VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/TabContainer/View"]
+margin_left = -4.0
+margin_top = 32.0
+margin_right = 1020.0
+margin_bottom = 220.0
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/View/CenterContainer"]
+margin_left = 255.0
+margin_right = 768.0
+margin_bottom = 188.0
+custom_constants/hseparation = 40
+columns = 2
+
+[node name="base_viewport" type="VBoxContainer" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer"]
+margin_right = 256.0
+margin_bottom = 92.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/base_viewport"]
+margin_right = 256.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/base_viewport/HBoxContainer"]
+margin_top = 13.0
+margin_right = 168.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "Project base viewport size"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/base_viewport/HBoxContainer"]
+margin_left = 172.0
+margin_right = 176.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/base_viewport/HBoxContainer"]
+margin_left = 180.0
+margin_right = 256.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/base_viewport"]
+margin_top = 44.0
+margin_right = 256.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, a square base viewport should be used, this helps fonts and overall scale"
+valign = 1
+autowrap = true
+
+[node name="strech_mode" type="VBoxContainer" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer"]
+margin_left = 296.0
+margin_right = 513.0
+margin_bottom = 92.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode"]
+margin_right = 217.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode/HBoxContainer"]
+margin_top = 13.0
+margin_right = 129.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "Project Strech Mode"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode/HBoxContainer"]
+margin_left = 133.0
+margin_right = 137.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode/HBoxContainer"]
+margin_left = 141.0
+margin_right = 217.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode"]
+margin_top = 44.0
+margin_right = 217.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, a 2D strech mode helps scale the output acording the defined ratio."
+valign = 1
+autowrap = true
+
+[node name="strech_aspect" type="VBoxContainer" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer"]
+margin_top = 96.0
+margin_right = 256.0
+margin_bottom = 188.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_aspect"]
+margin_right = 256.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_aspect/HBoxContainer"]
+margin_top = 13.0
+margin_right = 168.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "Project Strech Aspect"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_aspect/HBoxContainer"]
+margin_left = 172.0
+margin_right = 176.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_aspect/HBoxContainer"]
+margin_left = 180.0
+margin_right = 256.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_aspect"]
+margin_top = 44.0
+margin_right = 256.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, expand aspect allow the viewport output size to change acording the windo"
+valign = 1
+autowrap = true
+
+[node name="strech_mode3" type="VBoxContainer" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer"]
+margin_left = 296.0
+margin_top = 96.0
+margin_right = 513.0
+margin_bottom = 188.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode3"]
+margin_right = 217.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode3/HBoxContainer"]
+margin_top = 13.0
+margin_right = 129.0
+margin_bottom = 27.0
+text = "Project Strech Mode"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode3/HBoxContainer"]
+margin_left = 133.0
+margin_right = 137.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode3/HBoxContainer"]
+margin_left = 141.0
+margin_right = 217.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/View/CenterContainer/GridContainer/strech_mode3"]
+margin_top = 44.0
+margin_right = 217.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, a 2D strech mode helps scale the output acording the defined ratio."
+valign = 1
+autowrap = true
