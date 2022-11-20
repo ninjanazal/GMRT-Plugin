@@ -16,7 +16,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 1024.0
+margin_right = 512.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 1 )
 text = "GMRT - Plugin"
@@ -24,13 +24,13 @@ align = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 21.0
-margin_right = 1024.0
+margin_right = 512.0
 margin_bottom = 25.0
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 margin_top = 29.0
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 512.0
+margin_bottom = 512.0
 size_flags_vertical = 3
 tab_align = 0
 
@@ -57,13 +57,13 @@ anchor_bottom = 1.0
 scroll_horizontal_enabled = false
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer"]
-margin_right = 1004.0
+margin_right = 492.0
 margin_bottom = 643.0
 size_flags_horizontal = 3
 
 [node name="container" type="VBoxContainer" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer"]
-margin_left = 374.0
-margin_right = 630.0
+margin_left = 118.0
+margin_right = 374.0
 margin_bottom = 643.0
 custom_constants/separation = 20
 
@@ -95,10 +95,13 @@ margin_right = 176.0
 margin_bottom = 40.0
 
 [node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/base_viewport/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
 margin_left = 180.0
 margin_right = 256.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 2 )
+disabled = true
+pressed = true
 align = 1
 
 [node name="desc" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/base_viewport"]
@@ -132,10 +135,13 @@ margin_right = 176.0
 margin_bottom = 40.0
 
 [node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
 margin_left = 180.0
 margin_right = 256.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 2 )
+disabled = true
+pressed = true
 align = 1
 
 [node name="desc" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_mode"]
@@ -169,10 +175,13 @@ margin_right = 176.0
 margin_bottom = 40.0
 
 [node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_aspect/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
 margin_left = 180.0
 margin_right = 256.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 2 )
+disabled = true
+pressed = true
 align = 1
 
 [node name="desc" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/strech_aspect"]
@@ -206,10 +215,13 @@ margin_right = 176.0
 margin_bottom = 40.0
 
 [node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/handheld/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
 margin_left = 180.0
 margin_right = 256.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 2 )
+disabled = true
+pressed = true
 align = 1
 
 [node name="desc" type="Label" parent="VBoxContainer/TabContainer/Status/ScrollContainer/CenterContainer/container/handheld"]
