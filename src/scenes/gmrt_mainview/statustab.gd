@@ -1,5 +1,5 @@
 tool
-extends Tabs
+extends Control
 
 # - - - - - - - - - - - - - - - -
 # Class Status Entry
@@ -87,7 +87,8 @@ func _eval_project_state():
 	_eval_viewport_size();
 	_eval_strech_mode();
 	_eval_strech_aspect();
-	_evel_handheld();	
+	_evel_handheld();
+	_eval_gpupixelsnap();
 
 func _eval_viewport_size():
 	var h = ProjectSettings.get_setting("display/window/size/height");
@@ -105,6 +106,9 @@ func _eval_strech_aspect():
 func _evel_handheld():
 	_elms.handheld.set_button_pressed(
 		ProjectSettings.get_setting("display/window/handheld/orientation") == "sensor");
+
+func _eval_gpupixelsnap():
+	_elms.gpupixelsnap.set_button_pressed(ProjectSettings.get_setting("rendering/2d/snapping/use_gpu_pixel_snap"));
 # - - - - - - - - - - - - - - - -
 
 # - - - - - - - - - - - - - - - -
@@ -117,6 +121,7 @@ func _generate_connections():
 	if(_elms.strechmode != null): _elms.strechmode.connect_pressed(self, "_on_strech_mode_press");
 	if(_elms.strechaspect != null): _elms.strechaspect.connect_pressed(self, "_on_strech_aspect_press");
 	if(_elms.handheld != null): _elms.handheld.connect_pressed(self, "_on_handheld_press");
+	if(_elms.gpupixelsnap != null): _elms.gpupixelsnap.connect_pressed(self, "_on_gpupixelsnap_press");
 	_eval_project_state();
 
 
@@ -129,6 +134,8 @@ func _clear_connections():
 	if(_elms.strechmode != null): _elms.strechmode.disconnect_pressed(self, "_on_strech_mode_press");
 	if(_elms.strechaspect != null): _elms.strechaspect.disconnect_pressed(self, "_on_strech_aspect_press");
 	if(_elms.handheld != null): _elms.handheld.disconnect_pressed(self, "_on_handheld_press");
+	if(_elms.gpupixelsnap != null): _elms.gpupixelsnap.diconnect_pressed(self, "_on_gpupixelsnap_press");
+
 # - - - - - - - - - - - - - - - -
 
 # On project settings change callback function
@@ -143,8 +150,14 @@ func _on_viewport_press():
 func _on_strech_mode_press():
 	ProjectSettings.set_setting("display/window/stretch/mode", "2d");
 
+# On Strech aspect action button press callback
 func _on_strech_aspect_press():
 	ProjectSettings.set_setting("display/window/stretch/aspect", "expand");
 
+# on Handheld action button press callback
 func _on_handheld_press():
 	ProjectSettings.set_setting("display/window/handheld/orientation", "sensor");
+
+func _on_gpupixelsnap_press():
+	ProjectSettings.set_setting("rendering/2d/snapping/use_gpu_pixel_snap", true);
+
