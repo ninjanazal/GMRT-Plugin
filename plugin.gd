@@ -2,33 +2,43 @@ tool
 extends EditorPlugin
 
 var _view : Dictionary = {
+	"button" : preload("res://addons/GMRT-Plugin/view/gmrt_btn.tscn").instance(),
 	"main" : preload("res://addons/GMRT-Plugin/view/gmrt_mainview.tscn").instance()
 };
-
 
 # - - - - - - - - - - - - - - -
 # Godot API Functions
 # - - - - - - - - - - - - - - -
 # Godot entre tree override
 func _enter_tree():
+	if(!_view.button.is_connected("pressed", self, "_on_button_press")):
+		_view.button.connect("pressed", self, "_on_button_press");
+	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, VSeparator.new());
+	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, _view.button);
+
 	_view.main.visible = false;
-	get_editor_interface().get_editor_viewport().add_child(_view.main);
+	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_SIDE_RIGHT, _view.main);
 
 # Godot on exit tree override
 func _exit_tree():
 	if(_view.main):
+		remove_control_from_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_SIDE_RIGHT, _view.main);
 		_view.main.queue_free();
+	if(_view.button):
+		if(_view.button.is_connected("pressed", self, "_on_button_press")):
+			_view.button.disconnect("pressed", self, "_on_button_press")
+		remove_control_from_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, _view.button);
+		_view.button.queue_free();
 
 # Godot APi override
 # Returns true if this is a main screen editor plugin 
 # (it goes in the workspace selector together with 2D, 3D, Script and AssetLib)
-func has_main_screen(): return true;
+func has_main_screen(): return false;
 
 # Godot API override
 # This function will be called when the editor is requested to become visible.
 # It is used for plugins that edit a specific object type
 func make_visible(visible):
-	print("Request visible with %s" % visible);
 	if(_view.main):
 		_view.main.visible = visible;
 
@@ -45,3 +55,6 @@ func get_plugin_name(): return "GMRT";
 # Ideally, the plugin icon should be white with a transparent background and 16x16 pixels in size.
 func get_plugin_icon():
 	return get_editor_interface().get_base_control().get_icon("ToolAddNode", "EditorIcons");
+
+func _on_button_press():
+	make_visible(!_view.main.visible);

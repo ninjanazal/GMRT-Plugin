@@ -15,10 +15,13 @@ class StatusEntry:
 
 	# Defines the button press state
 	# @val {bool}: Button press state
-	func set_button_pressed(val: bool):
+	func set_button_pressed(val: bool, disable_on_positive: bool = true):
 		if(_btn != null):
 			_btn.pressed = val;
-			_btn.disabled = val;
+			
+			if(disable_on_positive): _btn.disabled = val;
+			else: _btn.disabled = false;
+			
 			_btn.self_modulate =\
 				Color("a2ffa1") if val else Color.white;
 
@@ -89,6 +92,7 @@ func _eval_project_state():
 	_eval_strech_aspect();
 	_evel_handheld();
 	_eval_gpupixelsnap();
+	_eval_vertecolorbatching();
 
 func _eval_viewport_size():
 	var h = ProjectSettings.get_setting("display/window/size/height");
@@ -108,7 +112,13 @@ func _evel_handheld():
 		ProjectSettings.get_setting("display/window/handheld/orientation") == "sensor");
 
 func _eval_gpupixelsnap():
-	_elms.gpupixelsnap.set_button_pressed(ProjectSettings.get_setting("rendering/2d/snapping/use_gpu_pixel_snap"));
+	_elms.gpupixelsnap.set_button_pressed(
+		ProjectSettings.get_setting("rendering/2d/snapping/use_gpu_pixel_snap"), false);
+
+func _eval_vertecolorbatching():
+	_elms.vertexcolorbatching.set_button_pressed(
+		ProjectSettings.get_setting("rendering/batching/parameters/colored_vertex_format_threshold") == 0
+	);
 # - - - - - - - - - - - - - - - -
 
 # - - - - - - - - - - - - - - - -
@@ -122,6 +132,7 @@ func _generate_connections():
 	if(_elms.strechaspect != null): _elms.strechaspect.connect_pressed(self, "_on_strech_aspect_press");
 	if(_elms.handheld != null): _elms.handheld.connect_pressed(self, "_on_handheld_press");
 	if(_elms.gpupixelsnap != null): _elms.gpupixelsnap.connect_pressed(self, "_on_gpupixelsnap_press");
+	if(_elms.vertexcolorbatching != null): _elms.vertexcolorbatching.connect_pressed(self, "_on_vertexcolorbatching_press");
 	_eval_project_state();
 
 
@@ -134,7 +145,8 @@ func _clear_connections():
 	if(_elms.strechmode != null): _elms.strechmode.disconnect_pressed(self, "_on_strech_mode_press");
 	if(_elms.strechaspect != null): _elms.strechaspect.disconnect_pressed(self, "_on_strech_aspect_press");
 	if(_elms.handheld != null): _elms.handheld.disconnect_pressed(self, "_on_handheld_press");
-	if(_elms.gpupixelsnap != null): _elms.gpupixelsnap.diconnect_pressed(self, "_on_gpupixelsnap_press");
+	if(_elms.gpupixelsnap != null): _elms.gpupixelsnap.disconnect_pressed(self, "_on_gpupixelsnap_press");
+	if(_elms.vertexcolorbatching != null): _elms.vertexcolorbatching.disconnect_pressed(self, "_on_vertexcolorbatching_press");
 
 # - - - - - - - - - - - - - - - -
 
@@ -158,6 +170,15 @@ func _on_strech_aspect_press():
 func _on_handheld_press():
 	ProjectSettings.set_setting("display/window/handheld/orientation", "sensor");
 
+# On Gpu Pixel snap button press callback
 func _on_gpupixelsnap_press():
-	ProjectSettings.set_setting("rendering/2d/snapping/use_gpu_pixel_snap", true);
+	ProjectSettings.set_setting(
+		"rendering/2d/snapping/use_gpu_pixel_snap",
+		!ProjectSettings.get_setting("rendering/2d/snapping/use_gpu_pixel_snap"));
 
+# On Vertex Color batching button press callback
+func _on_vertexcolorbatching_press():
+	ProjectSettings.set_setting(
+		"rendering/batching/parameters/colored_vertex_format_threshold",
+		0
+	);

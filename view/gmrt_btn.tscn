@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/GMRT-Plugin/assets/icons/ToolScale.png" type="Texture" id=1]
+
+[node name="ToolButton" type="ToolButton"]
+anchor_right = 0.133
+anchor_bottom = 0.047
+margin_right = -0.0960007
+margin_bottom = -0.0640011
+text = "GMRT"
+icon = ExtResource( 1 )
