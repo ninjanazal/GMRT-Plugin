@@ -1,0 +1,391 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/GMRT-Plugin/resources/font/RobotoMono_12.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GMRT-Plugin/resources/font/RobotoMono_10.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/GMRT-Plugin/src/scenes/gmrt_mainview/statustab.gd" type="Script" id=3]
+
+[node name="gmrt_mainview" type="Panel"]
+anchor_right = 1.80469
+anchor_bottom = 1.0
+rect_min_size = Vector2( 300, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+margin_right = 924.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 1 )
+text = "GMRT - Plugin"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 21.0
+margin_right = 924.0
+margin_bottom = 25.0
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+margin_top = 29.0
+margin_right = 924.0
+margin_bottom = 512.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="status" type="Tabs" parent="VBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Status" type="Control" parent="VBoxContainer/TabContainer/status"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 256, 0 )
+size_flags_horizontal = 9
+size_flags_vertical = 3
+script = ExtResource( 3 )
+base_viewport_cont = NodePath("ScrollContainer/CenterContainer/container/base_viewport")
+strech_mode_cont = NodePath("ScrollContainer/CenterContainer/container/strech_mode")
+strech_aspect_cont = NodePath("ScrollContainer/CenterContainer/container/strech_aspect")
+handheld_cont = NodePath("ScrollContainer/CenterContainer/container/handheld")
+gpupixel_snap_cont = NodePath("ScrollContainer/CenterContainer/container/gpupixel_snaping")
+vertexcolor_batching_cont = NodePath("ScrollContainer/CenterContainer/container/vertex_color_batching")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/status/Status"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+scroll_horizontal_enabled = false
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer"]
+margin_right = 904.0
+margin_bottom = 694.0
+size_flags_horizontal = 3
+
+[node name="container" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer"]
+margin_left = 330.0
+margin_right = 574.0
+margin_bottom = 694.0
+custom_constants/separation = 20
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 244.0
+margin_bottom = 5.0
+custom_constants/separation = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 25.0
+margin_right = 244.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 2 )
+text = "LookUp Project Settings"
+align = 1
+
+[node name="base_viewport" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 59.0
+margin_right = 244.0
+margin_bottom = 151.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_viewport"]
+margin_right = 244.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_viewport/HBoxContainer"]
+margin_top = 13.0
+margin_right = 156.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Project base viewport size"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_viewport/HBoxContainer"]
+margin_left = 160.0
+margin_right = 164.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_viewport/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
+margin_left = 168.0
+margin_right = 244.0
+margin_bottom = 40.0
+disabled = true
+pressed = true
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_viewport"]
+margin_top = 44.0
+margin_right = 244.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, a square base viewport should be used, this helps fonts and overall scale"
+valign = 1
+autowrap = true
+
+[node name="strech_mode" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 171.0
+margin_right = 244.0
+margin_bottom = 263.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_mode"]
+margin_right = 244.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_mode/HBoxContainer"]
+margin_top = 13.0
+margin_right = 156.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Project Strech Mode"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_mode/HBoxContainer"]
+margin_left = 160.0
+margin_right = 164.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_mode/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
+margin_left = 168.0
+margin_right = 244.0
+margin_bottom = 40.0
+disabled = true
+pressed = true
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_mode"]
+margin_top = 44.0
+margin_right = 244.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, a 2D strech mode helps scale the output acording the defined ratio."
+valign = 1
+autowrap = true
+
+[node name="strech_aspect" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 283.0
+margin_right = 244.0
+margin_bottom = 375.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_aspect"]
+margin_right = 244.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_aspect/HBoxContainer"]
+margin_top = 13.0
+margin_right = 156.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Project Strech Aspect"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_aspect/HBoxContainer"]
+margin_left = 160.0
+margin_right = 164.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_aspect/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
+margin_left = 168.0
+margin_right = 244.0
+margin_bottom = 40.0
+disabled = true
+pressed = true
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_aspect"]
+margin_top = 44.0
+margin_right = 244.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Better behavior, expand aspect allow the viewport output size to change acording the windo"
+valign = 1
+autowrap = true
+
+[node name="handheld" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 395.0
+margin_right = 244.0
+margin_bottom = 504.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/handheld"]
+margin_right = 244.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/handheld/HBoxContainer"]
+margin_top = 13.0
+margin_right = 156.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Project Handheld"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/handheld/HBoxContainer"]
+margin_left = 160.0
+margin_right = 164.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/handheld/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
+margin_left = 168.0
+margin_right = 244.0
+margin_bottom = 40.0
+disabled = true
+pressed = true
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/handheld"]
+margin_top = 44.0
+margin_right = 244.0
+margin_bottom = 109.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Multiple resolution correct reaction on handheld devices, the orientation should be controlled by the device sensor,"
+valign = 1
+autowrap = true
+
+[node name="gpupixel_snaping" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 524.0
+margin_right = 244.0
+margin_bottom = 599.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/gpupixel_snaping"]
+margin_right = 244.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/gpupixel_snaping/HBoxContainer"]
+margin_top = 13.0
+margin_right = 156.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Project Pixel Snaping"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/gpupixel_snaping/HBoxContainer"]
+margin_left = 160.0
+margin_right = 164.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/gpupixel_snaping/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
+margin_left = 168.0
+margin_right = 244.0
+margin_bottom = 40.0
+pressed = true
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/gpupixel_snaping"]
+margin_top = 44.0
+margin_right = 244.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 2 )
+text = "To make the images positioning, this setting may help on some graphic style."
+valign = 1
+autowrap = true
+
+[node name="vertex_color_batching" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 619.0
+margin_right = 244.0
+margin_bottom = 694.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/vertex_color_batching"]
+margin_right = 244.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/vertex_color_batching/HBoxContainer"]
+margin_top = 13.0
+margin_right = 156.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Colored Vertex Format"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/vertex_color_batching/HBoxContainer"]
+margin_left = 160.0
+margin_right = 164.0
+margin_bottom = 40.0
+
+[node name="btn" type="CheckButton" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/vertex_color_batching/HBoxContainer"]
+self_modulate = Color( 0.635294, 1, 0.631373, 1 )
+margin_left = 168.0
+margin_right = 244.0
+margin_bottom = 40.0
+disabled = true
+pressed = true
+align = 1
+
+[node name="desc" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/vertex_color_batching"]
+margin_top = 44.0
+margin_right = 244.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 2 )
+text = "Include color on the vertex information helps the batching process,"
+valign = 1
+autowrap = true
+
+[node name="Emulate" type="Tabs" parent="VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Emulate"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer"]
+margin_right = 916.0
+margin_bottom = 40.0
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer"]
+margin_right = 122.0
+margin_bottom = 40.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 1 )
+text = "Enable"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer"]
+margin_left = 126.0
+margin_right = 131.0
+margin_bottom = 40.0
+custom_constants/separation = 5
+
+[node name="Label2" type="Label" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer"]
+margin_left = 135.0
+margin_right = 177.0
+margin_bottom = 40.0
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 1 )
+text = "Ratio:"
+valign = 1
+
+[node name="ratio_value" type="Label" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer"]
+margin_left = 181.0
+margin_right = 209.0
+margin_bottom = 40.0
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 1 )
+text = "0.25"
+valign = 1
+
+[node name="ration_slider" type="HSlider" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer"]
+margin_left = 213.0
+margin_right = 916.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.25
+max_value = 20.0
+step = 0.01
+value = 0.25
