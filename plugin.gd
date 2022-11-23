@@ -3,7 +3,9 @@ extends EditorPlugin
 
 var _view : Dictionary = {
 	"button" : preload("res://addons/GMRT-Plugin/view/gmrt_btn.tscn").instance(),
-	"main" : preload("res://addons/GMRT-Plugin/view/gmrt_mainview.tscn").instance()
+	"main" : preload("res://addons/GMRT-Plugin/view/gmrt_mainview.tscn").instance(),
+	# Script Singleton
+	"gmrtcore_path" : "res://addons/GMRT-Plugin/src/gmrtcore.gd"
 };
 
 # - - - - - - - - - - - - - - -
@@ -13,11 +15,16 @@ var _view : Dictionary = {
 func _enter_tree():
 	if(!_view.button.is_connected("pressed", self, "_on_button_press")):
 		_view.button.connect("pressed", self, "_on_button_press");
+
 	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, VSeparator.new());
 	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, _view.button);
 
 	_view.main.visible = false;
 	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_SIDE_RIGHT, _view.main);
+
+func _ready():
+	if(!Engine.has_singleton("GmrtCore")):
+		call_deferred("add_autoload_singleton", "GmrtCore", _view.gmrtcore_path);
 
 # Godot on exit tree override
 func _exit_tree():
@@ -56,5 +63,6 @@ func get_plugin_name(): return "GMRT";
 func get_plugin_icon():
 	return get_editor_interface().get_base_control().get_icon("ToolAddNode", "EditorIcons");
 
+# On GMRT button press callback
 func _on_button_press():
 	make_visible(!_view.main.visible);
