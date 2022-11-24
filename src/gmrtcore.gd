@@ -1,6 +1,9 @@
 tool
 extends Node
 
+# Base project view size
+var BASE_SIZE: Vector2 = Vector2(512, 512);
+
 var _current_size : Vector2 = Vector2.ZERO;
 var _registed_scalers : Array = [];
 
@@ -34,7 +37,7 @@ func _enter_tree():
 func _on_viewsize_change():
 	var rootView = get_tree().root as Viewport;
 	_current_size = rootView.get_size_override();
-	print(rootView.size);
+	_call_size_change(_current_size);
 
 # On changing size, will trigger all the ScalaPlayers to update
 func _call_size_change(size: Vector2):
@@ -44,11 +47,16 @@ func _call_size_change(size: Vector2):
 
 # - - - - - - - - - - - - - - -
 # Tool
+var _editor_plug :EditorPlugin = null;
+
+func set_plugin(plug: EditorPlugin): _editor_plug = plug;
+func get_plugin(): _editor_plug;
+
 # Builds the current size based on the current project setting
 func _on_projectsettings_change():
 	_current_size = Vector2(
-		ProjectSettings.get_setting("display/window/size/height"),
-		ProjectSettings.get_setting("display/window/size/width")
+		ProjectSettings.get_setting("display/window/size/width"),
+		ProjectSettings.get_setting("display/window/size/height")
 	);
 
 	_call_size_change(_current_size);

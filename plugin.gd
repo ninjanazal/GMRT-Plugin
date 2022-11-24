@@ -4,6 +4,7 @@ extends EditorPlugin
 var _view : Dictionary = {
 	"button" : preload("res://addons/GMRT-Plugin/view/gmrt_btn.tscn").instance(),
 	"main" : preload("res://addons/GMRT-Plugin/view/gmrt_mainview.tscn").instance(),
+	"sep" : null,
 	# Script Singleton
 	"gmrtcore_path" : "res://addons/GMRT-Plugin/src/gmrtcore.gd"
 };
@@ -16,15 +17,19 @@ func _enter_tree():
 	if(!_view.button.is_connected("pressed", self, "_on_button_press")):
 		_view.button.connect("pressed", self, "_on_button_press");
 
-	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, VSeparator.new());
+	_view.sep = VSeparator.new();
+	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, _view.sep);
 	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, _view.button);
 
 	_view.main.visible = false;
 	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_SIDE_RIGHT, _view.main);
 
+# Godot on ready override
 func _ready():
 	if(!Engine.has_singleton("GmrtCore")):
 		call_deferred("add_autoload_singleton", "GmrtCore", _view.gmrtcore_path);
+		if(Engine.is_editor_hint()):
+			GmrtCore.call_deferred("set_plugin", self);
 
 # Godot on exit tree override
 func _exit_tree():
@@ -35,7 +40,9 @@ func _exit_tree():
 		if(_view.button.is_connected("pressed", self, "_on_button_press")):
 			_view.button.disconnect("pressed", self, "_on_button_press")
 		remove_control_from_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, _view.button);
+		remove_control_from_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, _view.sep);
 		_view.button.queue_free();
+		_view.sep.queue_free();
 
 # Godot APi override
 # Returns true if this is a main screen editor plugin 

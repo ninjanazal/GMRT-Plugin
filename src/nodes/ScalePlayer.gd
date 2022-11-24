@@ -5,7 +5,6 @@ class_name ScaleAnimation, "res://addons/GMRT-Plugin/assets/icons/ToolScale.png"
 # on View size change callback function
 # This is used as a registed function on the GMRT singleton
 func on_viewsize_change(ratio: float):
-	print("Seek to: %s" % ratio);
 	seek(ratio, true);
 
 # - - - - - - - - - - - - - - -
