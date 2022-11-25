@@ -26,10 +26,10 @@ func _enter_tree():
 
 # Godot on ready override
 func _ready():
-	if(!Engine.has_singleton("GmrtCore")):
-		call_deferred("add_autoload_singleton", "GmrtCore", _view.gmrtcore_path);
+	if(!Engine.has_singleton("Gmrtcore")):
+		call_deferred("add_autoload_singleton", "Gmrtcore", _view.gmrtcore_path);
 		if(Engine.is_editor_hint()):
-			GmrtCore.call_deferred("set_plugin", self);
+			Gmrtcore.call_deferred("set_plugin", self);
 
 # Godot on exit tree override
 func _exit_tree():

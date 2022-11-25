@@ -340,6 +340,8 @@ margin_bottom = -4.0
 script = ExtResource( 4 )
 enable_button = NodePath("VBoxContainer/HBoxContainer/CheckButton")
 ratio_spin = NodePath("VBoxContainer/HBoxContainer/ration_slider")
+x_spin = NodePath("VBoxContainer/HBoxContainer2/x_value")
+y_spin = NodePath("VBoxContainer/HBoxContainer2/y_value")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Emulate"]
 anchor_right = 1.0
@@ -381,3 +383,56 @@ step = 0.01
 value = 1.0
 align = 1
 editable = false
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer"]
+margin_top = 44.0
+margin_right = 504.0
+margin_bottom = 54.0
+custom_constants/separation = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer"]
+margin_top = 58.0
+margin_right = 504.0
+margin_bottom = 83.0
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
+margin_top = 4.0
+margin_right = 77.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 55, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "View Size :"
+
+[node name="Label2" type="Label" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
+margin_left = 81.0
+margin_top = 5.0
+margin_right = 99.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 2 )
+text = "x :"
+
+[node name="x_value" type="SpinBox" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
+margin_left = 103.0
+margin_right = 290.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+size_flags_horizontal = 3
+max_value = 5000.0
+value = 512.0
+
+[node name="Label3" type="Label" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
+margin_left = 294.0
+margin_top = 5.0
+margin_right = 312.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 2 )
+text = "y :"
+
+[node name="y_value" type="SpinBox" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
+margin_left = 316.0
+margin_right = 504.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+size_flags_horizontal = 3
+max_value = 5000.0
+value = 512.0

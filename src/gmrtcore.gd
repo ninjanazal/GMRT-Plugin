@@ -47,10 +47,11 @@ func _call_size_change(size: Vector2):
 
 # - - - - - - - - - - - - - - -
 # Tool
-var _editor_plug :EditorPlugin = null;
+var _editor_plug  = null;
 
-func set_plugin(plug: EditorPlugin): _editor_plug = plug;
-func get_plugin(): _editor_plug;
+func set_plugin(plug): _editor_plug = plug;
+func get_plugin(): 
+	return _editor_plug;
 
 # Builds the current size based on the current project setting
 func _on_projectsettings_change():

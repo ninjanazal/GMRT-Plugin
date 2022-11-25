@@ -19,10 +19,10 @@ func _enter_tree():
 			return;
 
 	assigned_animation = "DEFAULT";
-	GmrtCore.regist_scale_animation(self);
+	Gmrtcore.regist_scale_animation(self);
 
 func _exit_tree():
-	GmrtCore.unregist_scale_animation(self);
+	Gmrtcore.unregist_scale_animation(self);
 # - - - - - - - - - - - - - - -
 
 
