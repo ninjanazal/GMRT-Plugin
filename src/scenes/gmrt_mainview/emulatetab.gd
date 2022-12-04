@@ -70,7 +70,12 @@ func _on_enable_press(pressed: bool):
 # On slider value change callback function
 # @value {float}: New value
 func _on_slider_change(value: float):
-	var tSize = Gmrtcore.BASE_SIZE;
+	var tSize = Vector2(512, 512);
+	var gmrtSingle = null;
+	if(Engine.has_singleton("Gmrtcore")):
+		gmrtSingle = Engine.get_singleton("Gmrtcore");
+		tSize = gmrtSingle.BASE_SIZE;
+
 	if(value < 1.0):
 		if(value == 0.0): tSize.y = int((1.0 / 0.01) * tSize.y);
 		else: tSize.y = int((1.0 / value) * tSize.y);

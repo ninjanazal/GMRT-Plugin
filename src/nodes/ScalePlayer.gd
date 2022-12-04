@@ -34,4 +34,3 @@ func __create_default__():
 
 	if(add_animation("DEFAULT", tmp) != OK):
 		push_error("ScaleAnimation failded to create default animation");
-

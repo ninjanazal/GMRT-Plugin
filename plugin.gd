@@ -24,12 +24,6 @@ func _enter_tree():
 	_view.main.visible = false;
 	add_control_to_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_SIDE_RIGHT, _view.main);
 
-# Godot on ready override
-func _ready():
-	if(!Engine.has_singleton("Gmrtcore")):
-		call_deferred("add_autoload_singleton", "Gmrtcore", _view.gmrtcore_path);
-		if(Engine.is_editor_hint()):
-			Gmrtcore.call_deferred("set_plugin", self);
 
 # Godot on exit tree override
 func _exit_tree():

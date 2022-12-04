@@ -155,8 +155,11 @@ func _on_project_settings_changed(): _eval_project_state();
 
 # On viewport action button press callback
 func _on_viewport_press():
-	ProjectSettings.set_setting("display/window/size/width", Gmrtcore.BASE_SIZE.x);
-	ProjectSettings.set_setting("display/window/size/height", Gmrtcore.BASE_SIZE.y);
+	var gmrtSingle = null;
+	if(Engine.has_singleton("Gmrtcore")):
+		gmrtSingle = Engine.get_singleton("Gmrtcore");
+		ProjectSettings.set_setting("display/window/size/width", gmrtSingle.BASE_SIZE.x);
+		ProjectSettings.set_setting("display/window/size/height", gmrtSingle.BASE_SIZE.y);
 
 # On Strech mode action button press callback
 func _on_strech_mode_press():
