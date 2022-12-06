@@ -13,6 +13,14 @@ var _elms: Dictionary = {
 	"y_spin" : null
 }
 
+var plugRef = null;
+
+# - - - - - - - - - - - - - - - -
+# Sets the pluging object reference
+# @plug {EditorPlugin}: Plugin Object reference
+func ref_plug(plug):
+	plugRef = plug;
+
 # - - - - - - - - - - - - - - - -
 # API override functions
 func _enter_tree():
@@ -87,6 +95,9 @@ func _on_slider_change(value: float):
 	if(_elms.y_spin.get_value() != tSize.y):
 		_elms.y_spin.set_value(tSize.y);
 
+	if(plugRef != null):
+		plugRef.animationTimePos.set_value(value);
+	
 	ProjectSettings.set_setting("display/window/size/width", tSize.x);
 	ProjectSettings.set_setting("display/window/size/height", tSize.y);
 

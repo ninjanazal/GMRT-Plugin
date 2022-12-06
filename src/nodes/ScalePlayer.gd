@@ -2,6 +2,10 @@ tool
 extends AnimationPlayer
 class_name ScaleAnimation, "res://addons/GMRT-Plugin/assets/icons/ToolScale.png"
 
+# - - - - - - - - - - - - - - -
+# Exported toggle for adding a reference viewer
+export (bool) var add_reference = false setget __set_add_reference;
+
 # on View size change callback function
 # This is used as a registed function on the GMRT singleton
 func on_viewsize_change(ratio: float):
@@ -21,11 +25,20 @@ func _enter_tree():
 	assigned_animation = "DEFAULT";
 	Gmrtcore.regist_scale_animation(self);
 
+func _ready():
+	if(!Engine.is_editor_hint()): clear_childs();
+
 func _exit_tree():
 	Gmrtcore.unregist_scale_animation(self);
+
 # - - - - - - - - - - - - - - -
+# Clears all the node childs
+func clear_childs():
+	for child in get_children():
+		remove_child(child);
+		child.queue_free();
 
-
+# - - - - - - - - - - - - - - -
 # Creates the default animation
 func __create_default__():
 	var tmp = Animation.new();
@@ -34,3 +47,28 @@ func __create_default__():
 
 	if(add_animation("DEFAULT", tmp) != OK):
 		push_error("ScaleAnimation failded to create default animation");
+
+# - - - - - - - - - - - - - - -
+# Setter for the reference view, value discarded
+func __set_add_reference(value: bool):
+	if(Engine.is_editor_hint()):
+		clear_childs();
+		
+		var tmp = ReferenceRect.new();
+		tmp.set_name("EditorOnly-RefView");
+		tmp.set_border_color(__generate_random_color());
+		tmp.set_border_width(4);
+		tmp.set_anchors_preset(Control.PRESET_WIDE);
+		add_child(tmp);
+		tmp.set_owner(get_tree().get_edited_scene_root());
+
+# - - - - - - - - - - - - - - -
+# Generates a random color
+# Return {Color}: Random color
+func __generate_random_color()-> Color:
+	var rnd = RandomNumberGenerator.new();
+	var col := [];
+	for i in range(3):
+		rnd.randomize();
+		col.append(rnd.randf());
+	return Color(col[0], col[1], col[2], 1.0);
