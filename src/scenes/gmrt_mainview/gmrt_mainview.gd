@@ -12,6 +12,7 @@ var plugRef = null;
 # - - - - - - - - - - - - - - -
 # References the base plugin 
 func ref_plug(plug):
+	plugRef = plug;
 	var emulTab = get_node_or_null(emulate_tab_path);
 	if(emulTab != null):
 		emulTab.ref_plug(plugRef);
