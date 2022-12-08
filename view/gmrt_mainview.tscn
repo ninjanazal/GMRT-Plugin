@@ -7,8 +7,9 @@
 [ext_resource path="res://addons/GMRT-Plugin/src/scenes/gmrt_mainview/gmrt_mainview.gd" type="Script" id=5]
 
 [node name="gmrt_mainview" type="Panel"]
-anchor_right = 1.0
+anchor_right = 0.586
 anchor_bottom = 1.0
+margin_right = -0.0320129
 rect_min_size = Vector2( 300, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -22,7 +23,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 512.0
+margin_right = 300.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 1 )
 text = "GMRT - Plugin"
@@ -30,12 +31,12 @@ align = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 21.0
-margin_right = 512.0
+margin_right = 300.0
 margin_bottom = 25.0
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 margin_top = 29.0
-margin_right = 512.0
+margin_right = 300.0
 margin_bottom = 512.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -69,13 +70,13 @@ anchor_bottom = 1.0
 scroll_horizontal_enabled = false
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer"]
-margin_right = 492.0
+margin_right = 280.0
 margin_bottom = 694.0
 size_flags_horizontal = 3
 
 [node name="container" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer"]
-margin_left = 124.0
-margin_right = 368.0
+margin_left = 18.0
+margin_right = 262.0
 margin_bottom = 694.0
 custom_constants/separation = 20
 

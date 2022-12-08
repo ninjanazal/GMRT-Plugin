@@ -56,7 +56,7 @@ func _clear_connections():
 	self.disconnect("visibility_changed", self, "_on_visibility_change");
 	if(_elms.enable_btn != null): _elms.enable_btn.disconnect("toggled", self, "_on_enable_press");
 	if(_elms.ratio_spin != null): _elms.ratio_spin.disconnect("value_changed", self, "_on_slider_change");
-	if(_elms.x_spin != null): _elms.y_spin.disconnect("value_changed", self, "_on_spin_x_change");
+	if(_elms.x_spin != null): _elms.x_spin.disconnect("value_changed", self, "_on_spin_x_change");
 	if(_elms.y_spin != null): _elms.y_spin.disconnect("value_changed", self, "_on_spin_y_change");
 
 # On Object visible state change callback
