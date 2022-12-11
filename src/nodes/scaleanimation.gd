@@ -6,6 +6,9 @@ class_name ScaleAnimation, "res://addons/GMRT-Plugin/assets/icons/ToolScale.png"
 # Exported toggle for adding a reference viewer
 export (bool) var add_reference = false setget __set_add_reference;
 
+# - - - - - - - - - - - - - - -
+export (Array, Dictionary) var conditions = [];
+
 # on View size change callback function
 # This is used as a registed function on the GMRT singleton
 func on_viewsize_change(ratio: float):
@@ -61,6 +64,9 @@ func __set_add_reference(value: bool):
 		tmp.set_anchors_preset(Control.PRESET_WIDE);
 		add_child(tmp);
 		tmp.set_owner(get_tree().get_edited_scene_root());
+		
+		# Updates editor
+		property_list_changed_notify();
 
 # - - - - - - - - - - - - - - -
 # Generates a random color
@@ -72,3 +78,18 @@ func __generate_random_color()-> Color:
 		rnd.randomize();
 		col.append(rnd.randf());
 	return Color(col[0], col[1], col[2], 1.0);
+
+
+# - - - - - - - - - - - - - - -
+# Inspector
+func can_handle_override(): return true;
+
+# - - - - - - - - - - - - - - -
+func parse_category_override(plug: EditorInspectorPlugin, category: String):
+	if(category == "Script Variables"):
+		ScaleAnimationInspector.new().initialize(plug, self);
+
+# - - - - - - - - - - - - - - -
+func parse_property_override(plug: EditorInspectorPlugin,
+		type: int, path: String, hint: int, hint_text: String, usage: int):
+	return true;

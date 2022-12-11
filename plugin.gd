@@ -6,7 +6,9 @@ var _view : Dictionary = {
 	"main" : preload("res://addons/GMRT-Plugin/view/gmrt_mainview.tscn").instance(),
 	"sep" : null,
 	# Script Singleton
-	"gmrtcore_path" : "res://addons/GMRT-Plugin/src/gmrtcore.gd"
+	"gmrtcore_path" : "res://addons/GMRT-Plugin/src/gmrtcore.gd",
+	# Inspector plugin
+	"inspectorplug" : preload("res://addons/GMRT-Plugin/src/editor/inspectorplugin.gd").new()
 };
 
 # - - - - - - - - - - - - - - -
@@ -22,6 +24,8 @@ var animationTimePos = null;
 # - - - - - - - - - - - - - - -
 # Godot entre tree override
 func _enter_tree():
+	add_inspector_plugin(_view.inspectorplug);
+
 	if(!_view.button.is_connected("pressed", self, "_on_button_press")):
 		_view.button.connect("pressed", self, "_on_button_press");
 
@@ -45,6 +49,7 @@ func _enter_tree():
 # - - - - - - - - - - - - - - -
 # Godot on exit tree override
 func _exit_tree():
+	remove_inspector_plugin(_view.inspectorplug);
 	if(_view.main):
 		remove_control_from_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_SIDE_RIGHT, _view.main);
 		_view.main.queue_free();
