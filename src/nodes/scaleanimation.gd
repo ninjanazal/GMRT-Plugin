@@ -38,6 +38,21 @@ func _exit_tree():
 	Gmrtcore.unregist_scale_animation(self);
 
 # - - - - - - - - - - - - - - -
+# Creates a new empty condition
+# Used by the inspector
+func create_condition():
+	conditions.append({	"name" : null, "value": null, "animation": null});
+	property_list_changed_notify();
+
+
+# - - - - - - - - - - - - - - -
+func delete_condition(id: int):
+	if(conditions.size() <= id): return;
+	conditions.remove(id);
+
+	property_list_changed_notify();
+
+# - - - - - - - - - - - - - - -
 # Clears all the node childs
 func clear_childs():
 	for child in get_children():

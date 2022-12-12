@@ -45,6 +45,7 @@ func _create(plug: EditorInspectorPlugin):
 
 func _connect():
 	_comp.add_ref_btn.connect("toggled", _source, "__set_add_reference");
+	_comp.condition_add.connect("pressed", _source, "create_condition");
 
 # - - - - - - - - - - - - - - -
 func _update_view():
@@ -52,5 +53,5 @@ func _update_view():
 		"( %s )" % _source.conditions.size()
 	);
 	for i in _source.conditions.size():
-		var cView = _condition_view.instance();
+		var cView = _condition_view.instance().initialize(_source, i);
 		_comp.conditions.add_child(cView);
