@@ -7,6 +7,9 @@ class_name ScaleAnimation, "res://addons/GMRT-Plugin/assets/icons/ToolScale.png"
 export (bool) var add_reference = false setget __set_add_reference;
 
 # - - - - - - - - - - - - - - -
+# Existing coditions for trigger animation change
+# Expected structure for each element
+# {"name":String, "value": Value, "animation": String}
 export (Array, Dictionary) var conditions = [];
 
 # on View size change callback function
@@ -79,17 +82,19 @@ func __generate_random_color()-> Color:
 		col.append(rnd.randf());
 	return Color(col[0], col[1], col[2], 1.0);
 
+# - - - - - - - - - - - - - - -
+# @Inspector
+# Called function from editor plugin to validate if exists a custom inspector inplementation
+# Return {bool}: Should be handled by class
+func can_handle_override()-> bool: return true;
 
 # - - - - - - - - - - - - - - -
-# Inspector
-func can_handle_override(): return true;
-
-# - - - - - - - - - - - - - - -
+# Parse_Property override, add a custom view to the Script Variables
 func parse_category_override(plug: EditorInspectorPlugin, category: String):
 	if(category == "Script Variables"):
-		ScaleAnimationInspector.new().initialize(plug, self);
+		ScaleAnimationInspector.new(plug, self);
 
 # - - - - - - - - - - - - - - -
 func parse_property_override(plug: EditorInspectorPlugin,
 		type: int, path: String, hint: int, hint_text: String, usage: int):
-	return true;
+	return (["add_reference", "conditions"].find(path) != -1);

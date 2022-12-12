@@ -5,34 +5,52 @@ class_name ScaleAnimationInspector
 # - - - - - - - - - - - - - - -
 var _packed_view = preload("res://addons/GMRT-Plugin/src/nodes/inspector/scale_animation_inspector.tscn");
 
-var _comp := {
-	"view" : null,
-	"add_ref_btn" : null,
-	"condition_btn" : null,
-	"conditions" : null
-};
-var _insp_view = null;
+# - - - - - - - - - - - - - - -
+var _condition_view = preload("res://addons/GMRT-Plugin/src/nodes/inspector/scale_animation_condition_view.tscn");
 
+# - - - - - - - - - - - - - - -
+var _icons = {
+	"arrow_right": preload("res://addons/GMRT-Plugin/assets/icons/ArrowRight.svg"),
+	"arrow_down" : preload("res://addons/GMRT-Plugin/assets/icons/ArrowDown.svg")
+}
+
+var _comp := {
+	"view" : _packed_view.instance(),
+	"add_ref_btn" : null,
+	"condition_count" : null,
+	"condition_add" : null,
+	"conditions" : null,
+};
+
+var _source = null;
 
 # - - - - - - - - - - - - - - -
 # Initialize the ScaleAnimation Inspector, connection and drawing
 # @plug {EditorInspectorPlugin}: Reference for the source Inspector pluging
 # @src {ScaleAnimation}: Refered ScaleAnimation object
-func initialize(plug: EditorInspectorPlugin, src):
+func _init(plug: EditorInspectorPlugin, src):
+	_source = src;
 	_create(plug);
-	_connect(src);
-	return self;
-
+	_connect();
+	_update_view();
 
 # - - - - - - - - - - - - - - -
 func _create(plug: EditorInspectorPlugin):
-	_comp.view = _packed_view.instance();
 	_comp.add_ref_btn = _comp.view.get_node("refresh_btn");
-	_comp.condition_btn = _comp.view.get_node("HBoxContainer/conditions_display_btn");
+	_comp.condition_count = _comp.view.get_node("HBoxContainer/condition_count");
+	_comp.condition_add = _comp.view.get_node("HBoxContainer/add_btn");
 	_comp.conditions = _comp.view.get_node("conditions");
-	_comp.conditions.hide();
-
 	plug.add_custom_control(_comp.view);
 
-func _connect(src):
-	_comp.add_ref_btn.connect("toggled", src, "__set_add_reference");
+
+func _connect():
+	_comp.add_ref_btn.connect("toggled", _source, "__set_add_reference");
+
+# - - - - - - - - - - - - - - -
+func _update_view():
+	_comp.condition_count.set_text(
+		"( %s )" % _source.conditions.size()
+	);
+	for i in _source.conditions.size():
+		var cView = _condition_view.instance();
+		_comp.conditions.add_child(cView);
