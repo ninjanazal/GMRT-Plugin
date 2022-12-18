@@ -28,14 +28,14 @@ var _source = null;
 # Initialize the ScaleAnimation Inspector, connection and drawing
 # @plug {EditorInspectorPlugin}: Reference for the source Inspector pluging
 # @src {ScaleAnimation}: Refered ScaleAnimation object
-func _init(plug: EditorInspectorPlugin, src):
+func _init(plug, src):
 	_source = src;
 	_create(plug);
 	_connect();
 	_update_view();
 
 # - - - - - - - - - - - - - - -
-func _create(plug: EditorInspectorPlugin):
+func _create(plug):
 	_comp.add_ref_btn = _comp.view.get_node("refresh_btn");
 	_comp.condition_count = _comp.view.get_node("HBoxContainer/condition_count");
 	_comp.condition_add = _comp.view.get_node("HBoxContainer/add_btn");

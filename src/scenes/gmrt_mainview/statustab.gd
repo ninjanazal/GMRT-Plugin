@@ -27,7 +27,7 @@ class StatusEntry:
 
 	# Connects the action button to a target callback
 	# @target {Object}: Callable object
-	# @funcName {String}: Call function name
+	# @funcName {String}: Call function namea
 	func connect_pressed(target: Object, funcName: String):
 		if(_btn != null && !_btn.is_connected("pressed", target, funcName)):
 			_btn.connect("pressed", target, funcName);

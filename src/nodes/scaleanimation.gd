@@ -96,20 +96,3 @@ func __generate_random_color()-> Color:
 		rnd.randomize();
 		col.append(rnd.randf());
 	return Color(col[0], col[1], col[2], 1.0);
-
-# - - - - - - - - - - - - - - -
-# @Inspector
-# Called function from editor plugin to validate if exists a custom inspector inplementation
-# Return {bool}: Should be handled by class
-func can_handle_override()-> bool: return true;
-
-# - - - - - - - - - - - - - - -
-# Parse_Property override, add a custom view to the Script Variables
-func parse_category_override(plug: EditorInspectorPlugin, category: String):
-	if(category == "Script Variables"):
-		ScaleAnimationInspector.new(plug, self);
-
-# - - - - - - - - - - - - - - -
-func parse_property_override(plug: EditorInspectorPlugin,
-		type: int, path: String, hint: int, hint_text: String, usage: int):
-	return (["add_reference", "conditions"].find(path) != -1);
