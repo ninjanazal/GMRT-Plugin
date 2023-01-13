@@ -43,6 +43,7 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="status" type="Tabs" parent="VBoxContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -70,13 +71,13 @@ anchor_bottom = 1.0
 scroll_horizontal_enabled = false
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer"]
-margin_right = 280.0
+margin_right = 292.0
 margin_bottom = 694.0
 size_flags_horizontal = 3
 
 [node name="container" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer"]
-margin_left = 18.0
-margin_right = 262.0
+margin_left = 24.0
+margin_right = 268.0
 margin_bottom = 694.0
 custom_constants/separation = 20
 
@@ -332,7 +333,6 @@ valign = 1
 autowrap = true
 
 [node name="Emulate" type="Tabs" parent="VBoxContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -350,7 +350,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer"]
-margin_right = 504.0
+margin_right = 292.0
 margin_bottom = 40.0
 
 [node name="CheckButton" type="CheckButton" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer"]
@@ -377,24 +377,24 @@ valign = 1
 
 [node name="ration_slider" type="SpinBox" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer"]
 margin_left = 181.0
-margin_right = 504.0
+margin_right = 292.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 max_value = 20.0
-step = 0.01
+step = 0.001
 value = 1.0
 align = 1
 editable = false
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer"]
 margin_top = 44.0
-margin_right = 504.0
+margin_right = 292.0
 margin_bottom = 54.0
 custom_constants/separation = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer"]
 margin_top = 58.0
-margin_right = 504.0
+margin_right = 292.0
 margin_bottom = 83.0
 
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
@@ -415,7 +415,7 @@ text = "x :"
 
 [node name="x_value" type="SpinBox" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
 margin_left = 103.0
-margin_right = 290.0
+margin_right = 184.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 0, 25 )
 size_flags_horizontal = 3
@@ -423,16 +423,16 @@ max_value = 5000.0
 value = 512.0
 
 [node name="Label3" type="Label" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
-margin_left = 294.0
+margin_left = 188.0
 margin_top = 5.0
-margin_right = 312.0
+margin_right = 206.0
 margin_bottom = 19.0
 custom_fonts/font = ExtResource( 2 )
 text = "y :"
 
 [node name="y_value" type="SpinBox" parent="VBoxContainer/TabContainer/Emulate/VBoxContainer/HBoxContainer2"]
-margin_left = 316.0
-margin_right = 504.0
+margin_left = 210.0
+margin_right = 292.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 0, 25 )
 size_flags_horizontal = 3

@@ -3,14 +3,18 @@ extends AnimationPlayer
 class_name ScaleAnimation, "res://addons/GMRT-Plugin/assets/icons/ToolScale.png"
 
 # - - - - - - - - - - - - - - -
-# Exported toggle for adding a reference viewer
-export (bool) var add_reference = false setget __set_add_reference;
+enum CONDITIONTYPE {  TYPE_BOOL = 1, TYPE_INT, TYPE_REAL, TYPE_STRING }
 
 # - - - - - - - - - - - - - - -
 # Existing coditions for trigger animation change
 # Expected structure for each element
 # {"name":String, "value": Value, "animation": String}
-export (Array, Dictionary) var conditions = [];
+var conditions: Array = [];
+
+
+# - - - - - - - - - - - - - - -
+var _values : Dictionary = { };
+
 
 # on View size change callback function
 # This is used as a registed function on the GMRT singleton
@@ -41,16 +45,18 @@ func _exit_tree():
 # Creates a new empty condition
 # Used by the inspector
 func create_condition():
-	conditions.append({	"name" : null, "value": null, "animation": null});
+	conditions.append( {
+			"name" : "", "type" : CONDITIONTYPE.TYPE_BOOL,
+			"value" : "0", "animation" : ""
+		});
 	property_list_changed_notify();
 
 
 # - - - - - - - - - - - - - - -
-func delete_condition(id: int):
-	if(conditions.size() <= id): return;
-	conditions.remove(id);
-
+func delete_condition():
+	conditions.remove(conditions.size() - 1);
 	property_list_changed_notify();
+
 
 # - - - - - - - - - - - - - - -
 # Clears all the node childs
@@ -64,14 +70,14 @@ func clear_childs():
 func __create_default__():
 	var tmp = Animation.new();
 	tmp.set_length(20.0);
-	tmp.set_step(0.01);
+	tmp.set_step(0.001);
 
 	if(add_animation("DEFAULT", tmp) != OK):
 		push_error("ScaleAnimation failded to create default animation");
 
 # - - - - - - - - - - - - - - -
 # Setter for the reference view, value discarded
-func __set_add_reference(value: bool):
+func __set_add_reference():
 	if(Engine.is_editor_hint()):
 		clear_childs();
 		
@@ -81,10 +87,7 @@ func __set_add_reference(value: bool):
 		tmp.set_border_width(4);
 		tmp.set_anchors_preset(Control.PRESET_WIDE);
 		add_child(tmp);
-		tmp.set_owner(get_tree().get_edited_scene_root());
-		
-		# Updates editor
-		property_list_changed_notify();
+
 
 # - - - - - - - - - - - - - - -
 # Generates a random color
@@ -96,3 +99,79 @@ func __generate_random_color()-> Color:
 		rnd.randomize();
 		col.append(rnd.randf());
 	return Color(col[0], col[1], col[2], 1.0);
+
+
+# - - - - - - - - - - - - - - -
+func _get_property_list():
+	var properties = [];
+	#{"name":String, "value": Value, "type": Type, "animation": String}
+	properties.append_array([
+		{ "name" : "add_reference",	"type": TYPE_BOOL }
+	]);
+
+	if(!conditions.empty()):
+		properties.append({
+			"name" : "Conditions",
+			"type" : TYPE_NIL,
+			"usage" : PROPERTY_USAGE_CATEGORY
+		});
+
+	for i in conditions.size():
+		properties.append_array([
+			# @Group
+			{
+				"name" : str(i),
+				"type" : TYPE_NIL,
+				"usage" : PROPERTY_USAGE_GROUP,
+				"hint_string" : "condition_%s_" % str(i)
+			},
+
+			{ "name" : "condition_%s_name" % str(i), "type" : TYPE_STRING },
+
+			{
+				"name" : "condition_%s_type" % str(i),
+				"type" : TYPE_INT,
+				"hint" : PROPERTY_HINT_ENUM,
+				"hint_string" : ",".join(CONDITIONTYPE.keys())
+			},
+			{ "name" : "condition_%s_value" % str(i), "type" : conditions[i].type + 1 },
+			{ "name" : "condition_%s_animation" % str(i), "type" : TYPE_STRING }
+		]);
+	return properties;
+
+
+# - - - - - - - - - - - - - - -
+func _set(property, value):
+	var value_set = true;
+	
+	var _split = property.split("_");
+	if(_split[0] == "condition"):
+		if(conditions.size() - 1 < int(_split[1])):
+			create_condition();
+			
+		conditions[int(_split[1])][_split[2]] = value;
+		if(_split[2] == "type"):
+			property_list_changed_notify();
+		return true;
+	
+	match property:
+		"add_reference": __set_add_reference();
+		_:
+			value_set = false;
+	return value_set;
+
+
+# - - - - - - - - - - - - - - -
+func _get(property):
+	var value = null;
+	
+	var _split = property.split("_");
+	if(_split[0] == "condition"):
+		value = conditions[int(_split[1])][_split[2]];
+		return value;
+	
+	match property:
+		"add_reference": value = null;
+		_:
+			value = null;
+	return value;

@@ -4,6 +4,8 @@ extends Node
 # Base project view size
 var BASE_SIZE: Vector2 = Vector2(512, 512);
 
+
+var _condition_list
 var _current_size : Vector2 = Vector2.ZERO;
 var _registed_scalers : Array = [];
 

@@ -6,7 +6,9 @@ extends EditorInspectorPlugin
 #   Returns true if this object can be handled by this plugin.
 # Implement can_handle_override()-> bool if has a custom editor interface
 func can_handle(object: Object):
-    return (object is ScaleAnimation);
+	if(object is ScaleAnimation):
+		return true;
+	return false;
 
 
 # - - - - - - - - - - - - - - -
@@ -20,7 +22,7 @@ func can_handle(object: Object):
 # If adds to a property
 func parse_property(object: Object, type: int, path: String, hint: int, hint_text: String, usage: int):
 	if(["add_reference", "conditions"].find(path) != -1):
-		if(path == "conditions"):
+		if(path == "add_reference"):
 			ScaleAnimationInspector.new(self, object);
 		return true;
 	return false;

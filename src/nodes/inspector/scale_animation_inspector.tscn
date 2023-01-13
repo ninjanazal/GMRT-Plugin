@@ -60,7 +60,7 @@ custom_constants/separation = 10
 
 [node name="add_btn" type="Button" parent="HBoxContainer"]
 margin_left = 152.0
-margin_right = 478.0
+margin_right = 303.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 4 )
@@ -68,12 +68,22 @@ text = "Add"
 
 [node name="VSeparator3" type="VSeparator" parent="HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
+margin_left = 307.0
+margin_right = 322.0
+margin_bottom = 20.0
+custom_constants/separation = 15
+
+[node name="remove_btn" type="Button" parent="HBoxContainer"]
+margin_left = 326.0
+margin_right = 478.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
+text = "Remove"
+
+[node name="VSeparator4" type="VSeparator" parent="HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 482.0
 margin_right = 512.0
 margin_bottom = 20.0
 custom_constants/separation = 30
-
-[node name="conditions" type="VBoxContainer" parent="."]
-margin_top = 71.0
-margin_right = 512.0
-margin_bottom = 71.0
