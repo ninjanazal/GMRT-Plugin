@@ -8,7 +8,7 @@ var _view : Dictionary = {
 	# Script Singleton
 	"gmrtcore_path" : "res://addons/GMRT-Plugin/src/gmrtcore.gd",
 	# Inspector plugin
-	"inspectorplug" : preload("res://addons/GMRT-Plugin/src/editor/inspectorplugin.gd").new()
+	"inspectorplug" : preload("res://addons/GMRT-Plugin/src/editor/inspectorplugin.gd").new(),
 };
 
 # - - - - - - - - - - - - - - -
@@ -50,6 +50,7 @@ func _enter_tree():
 # Godot on exit tree override
 func _exit_tree():
 	remove_inspector_plugin(_view.inspectorplug);
+
 	if(_view.main):
 		remove_control_from_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_SIDE_RIGHT, _view.main);
 		_view.main.queue_free();

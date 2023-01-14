@@ -16,10 +16,9 @@ var conditions: Array = [];
 var _values : Dictionary = { };
 
 
-# on View size change callback function
-# This is used as a registed function on the GMRT singleton
-func on_viewsize_change(ratio: float):
-	seek(ratio, true);
+# ==================== ====================
+# GODOT API Overrides
+# ==================== ====================
 
 # - - - - - - - - - - - - - - -
 # Godot API function override
@@ -35,11 +34,26 @@ func _enter_tree():
 	assigned_animation = "DEFAULT";
 	Gmrtcore.regist_scale_animation(self);
 
+
 func _ready():
 	if(!Engine.is_editor_hint()): clear_childs();
 
+
 func _exit_tree():
 	Gmrtcore.unregist_scale_animation(self);
+
+
+# ==================== ====================
+# PUBLIC FUNCTIONS
+# ==================== ====================
+
+
+# on View size change callback function
+# This is used as a registed function on the GMRT singleton
+func on_viewsize_change(ratio: float):
+	seek(ratio, true);
+
+
 
 # - - - - - - - - - - - - - - -
 # Creates a new empty condition
@@ -53,6 +67,7 @@ func create_condition():
 
 
 # - - - - - - - - - - - - - - -
+# Removes the last condition on the array
 func delete_condition():
 	conditions.remove(conditions.size() - 1);
 	property_list_changed_notify();
@@ -64,6 +79,12 @@ func clear_childs():
 	for child in get_children():
 		remove_child(child);
 		child.queue_free();
+
+
+# ==================== ====================
+# PRIVATE FUNCTIONS
+# ==================== ====================
+
 
 # - - - - - - - - - - - - - - -
 # Creates the default animation
@@ -99,6 +120,11 @@ func __generate_random_color()-> Color:
 		rnd.randomize();
 		col.append(rnd.randf());
 	return Color(col[0], col[1], col[2], 1.0);
+
+
+# ==================== ====================
+# GODOT VIRTUAL FUNCTIONS
+# ==================== ====================
 
 
 # - - - - - - - - - - - - - - -
