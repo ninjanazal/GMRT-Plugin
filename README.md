@@ -1,5 +1,6 @@
 # GMRT-Plugin
-Godot Multiple Resolution Tool - Helps Control Object position for multiple resolution
+Godot Multiple Resource Toolchain - Helper nodes, editor actions
+
 
 ---
 ## Editor Classes

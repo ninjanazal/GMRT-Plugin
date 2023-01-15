@@ -59,6 +59,7 @@ margin_bottom = 20.0
 custom_constants/separation = 10
 
 [node name="add_btn" type="Button" parent="HBoxContainer"]
+self_modulate = Color( 0.898039, 1, 0.882353, 1 )
 margin_left = 152.0
 margin_right = 303.0
 margin_bottom = 20.0
@@ -74,6 +75,7 @@ margin_bottom = 20.0
 custom_constants/separation = 15
 
 [node name="remove_btn" type="Button" parent="HBoxContainer"]
+self_modulate = Color( 1, 0.894118, 0.894118, 1 )
 margin_left = 326.0
 margin_right = 478.0
 margin_bottom = 20.0

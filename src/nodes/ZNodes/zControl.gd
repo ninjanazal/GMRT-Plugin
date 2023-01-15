@@ -1,6 +1,6 @@
 tool
 extends Control
-class_name ZControl
+class_name ZControl, "res://addons/GMRT-Plugin/src/nodes/ZNodes/assets/zControl.png"
 
 # - - - - - - - - - - - - - - -
 # Z index value

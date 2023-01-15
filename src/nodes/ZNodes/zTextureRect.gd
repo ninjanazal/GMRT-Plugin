@@ -1,6 +1,6 @@
 tool
-extends Label
-class_name ZLabel, "res://addons/GMRT-Plugin/src/nodes/ZNodes/assets/zLabel.png"
+extends TextureRect
+class_name ZTextureRect, "res://addons/GMRT-Plugin/src/nodes/ZNodes/assets/zTextureRect.png"
 
 # - - - - - - - - - - - - - - -
 # Z index value

@@ -41,14 +41,17 @@ func _on_viewsize_change():
 	_current_size = rootView.get_size_override();
 	_call_size_change(_current_size);
 
+
+# - - - - - - - - - - - - - - -
 # On changing size, will trigger all the ScalaPlayers to update
 func _call_size_change(size: Vector2):
 	var tmp :float = size.x / size.y;
 	for callable in _registed_scalers:
 		callable.on_viewsize_change(tmp);
 
-# - - - - - - - - - - - - - - -
-# Tool
+# ==================== ====================
+# TOOL RELATED
+# ==================== ====================
 var _editor_plug  = null;
 
 func set_plugin(plug): _editor_plug = plug;

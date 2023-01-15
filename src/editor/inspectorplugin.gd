@@ -4,6 +4,8 @@ extends EditorInspectorPlugin
 # - - - - - - - - - - - - - - -
 var _scaleAnimationInspector = null;
 
+var _removeicon = null;
+
 # - - - - - - - - - - - - - - -
 # From Docs:
 #   Returns true if this object can be handled by this plugin.
@@ -27,8 +29,21 @@ func can_handle(object: Object):
 #   type: int, path: String, hint: int, hint_text: String, usage: int)
 # If adds to a property
 func parse_property(object: Object, type: int, path: String, hint: int, hint_text: String, usage: int):
-	if(["add_reference", "conditions"].find(path) != -1):
-		if(path == "add_reference"):
-			_scaleAnimationInspector.new(self, object);
+	if(path == "add_reference"):
+		_scaleAnimationInspector.new(self, object);
 		return true;
+	
+	var _split = path.split('_');
+	if(_split.size() >= 3 && _split[2] == "remove"):
+		if(_removeicon == null):
+			_removeicon = load("res://addons/GMRT-Plugin/assets/icons/Remove.svg");
+
+		var btn = ToolButton.new();
+		btn.set_text("Remove");
+		btn.connect("pressed", object, "set",[path, true]);
+		btn.set_self_modulate(Color.red);
+		btn.set_button_icon(_removeicon);
+		add_custom_control(btn);
+		return true;
+		
 	return false;

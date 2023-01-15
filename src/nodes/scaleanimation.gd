@@ -74,6 +74,14 @@ func delete_condition():
 
 
 # - - - - - - - - - - - - - - -
+
+func delete_condition_at(id: int):
+	if(conditions.size() > id):
+		conditions.remove(id);
+		property_list_changed_notify();
+
+
+# - - - - - - - - - - - - - - -
 # Clears all the node childs
 func clear_childs():
 	for child in get_children():
@@ -161,7 +169,8 @@ func _get_property_list():
 				"hint_string" : ",".join(CONDITIONTYPE.keys())
 			},
 			{ "name" : "condition_%s_value" % str(i), "type" : conditions[i].type + 1 },
-			{ "name" : "condition_%s_animation" % str(i), "type" : TYPE_STRING }
+			{ "name" : "condition_%s_animation" % str(i), "type" : TYPE_STRING },
+			{ "name" : "condition_%s_remove" % str(i), "type" : TYPE_BOOL}
 		]);
 	return properties;
 
@@ -172,9 +181,14 @@ func _set(property, value):
 	
 	var _split = property.split("_");
 	if(_split[0] == "condition"):
+		if(_split[2] == "remove"):
+			if(value):
+				delete_condition_at(int(_split[1]));
+				return true;
+		
 		if(conditions.size() - 1 < int(_split[1])):
 			create_condition();
-			
+				
 		conditions[int(_split[1])][_split[2]] = value;
 		if(_split[2] == "type"):
 			property_list_changed_notify();
@@ -193,6 +207,9 @@ func _get(property):
 	
 	var _split = property.split("_");
 	if(_split[0] == "condition"):
+		if(_split[2] == "remove"):
+			return false;
+		
 		value = conditions[int(_split[1])][_split[2]];
 		return value;
 	

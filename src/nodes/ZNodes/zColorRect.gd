@@ -1,6 +1,6 @@
 tool
 extends ColorRect
-class_name ZColorRect
+class_name ZColorRect, "res://addons/GMRT-Plugin/src/nodes/ZNodes/assets/zColorRect.png"
 
 # - - - - - - - - - - - - - - -
 # Z index value
