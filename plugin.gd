@@ -46,6 +46,7 @@ func _enter_tree():
 
 	_view.main.ref_plug(self);
 
+
 # - - - - - - - - - - - - - - -
 # Godot on exit tree override
 func _exit_tree():

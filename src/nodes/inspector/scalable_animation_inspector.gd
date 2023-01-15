@@ -1,6 +1,5 @@
 tool
 extends Control
-class_name ScaleAnimationInspector
 
 # - - - - - - - - - - - - - - -
 var _packed_view = preload("res://addons/GMRT-Plugin/src/nodes/inspector/scale_animation_inspector.tscn");

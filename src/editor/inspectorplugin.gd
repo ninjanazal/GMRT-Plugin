@@ -2,11 +2,17 @@ tool
 extends EditorInspectorPlugin
 
 # - - - - - - - - - - - - - - -
+var _scaleAnimationInspector = null;
+
+# - - - - - - - - - - - - - - -
 # From Docs:
 #   Returns true if this object can be handled by this plugin.
 # Implement can_handle_override()-> bool if has a custom editor interface
 func can_handle(object: Object):
 	if(object is ScaleAnimation):
+		if(_scaleAnimationInspector == null):
+			_scaleAnimationInspector =\
+				load("res://addons/GMRT-Plugin/src/nodes/inspector/scalable_animation_inspector.gd");
 		return true;
 	return false;
 
@@ -23,6 +29,6 @@ func can_handle(object: Object):
 func parse_property(object: Object, type: int, path: String, hint: int, hint_text: String, usage: int):
 	if(["add_reference", "conditions"].find(path) != -1):
 		if(path == "add_reference"):
-			ScaleAnimationInspector.new(self, object);
+			_scaleAnimationInspector.new(self, object);
 		return true;
 	return false;
