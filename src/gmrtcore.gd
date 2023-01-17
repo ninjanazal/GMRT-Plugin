@@ -1,6 +1,12 @@
 tool
 extends Node
 
+# - - - - - - - - - - - - - - -
+enum CONDITIONTYPE {  TYPE_BOOL = 1, TYPE_INT, TYPE_REAL, TYPE_STRING, TYPE_LAYOUT }
+
+# - - - - - - - - - - - - - - -
+enum LAYOUT_TYPE { DEFAULT, DESKTOP, MOBILE, MOBILE_RIGHT, MOBILE_LEFT}
+
 # Base project view size
 var BASE_SIZE: Vector2 = Vector2(512, 512);
 
@@ -8,6 +14,7 @@ var BASE_SIZE: Vector2 = Vector2(512, 512);
 var _condition_list
 var _current_size : Vector2 = Vector2.ZERO;
 var _registed_scalers : Array = [];
+
 
 # Regists a scale animation
 # @player {ScaleAnimation}: Animation player

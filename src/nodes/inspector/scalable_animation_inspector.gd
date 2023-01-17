@@ -31,6 +31,7 @@ func _init(plug, src):
 	_connect();
 	update_property();
 
+
 # - - - - - - - - - - - - - - -
 func _create(plug):
 	_comp.add_ref_btn = _comp.view.get_node("refresh_btn");
@@ -40,12 +41,14 @@ func _create(plug):
 	plug.add_custom_control(_comp.view);
 
 
+# - - - - - - - - - - - - - - -
 func _connect():
 	_comp.add_ref_btn.connect("pressed", self, "_on_add_reference");
 	_comp.condition_add.connect("pressed", _source, "create_condition");
 	_comp.condition_remove.connect("pressed", _source, "delete_condition");
 
 
+# - - - - - - - - - - - - - - -
 func _on_add_reference(): _source.set("add_reference", true);
 
 
