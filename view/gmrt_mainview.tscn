@@ -43,7 +43,6 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="status" type="Tabs" parent="VBoxContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -58,12 +57,9 @@ rect_min_size = Vector2( 256, 0 )
 size_flags_horizontal = 9
 size_flags_vertical = 3
 script = ExtResource( 3 )
-base_viewport_cont = NodePath("ScrollContainer/CenterContainer/container/base_viewport")
-strech_mode_cont = NodePath("ScrollContainer/CenterContainer/container/strech_mode")
-strech_aspect_cont = NodePath("ScrollContainer/CenterContainer/container/strech_aspect")
-handheld_cont = NodePath("ScrollContainer/CenterContainer/container/handheld")
-gpupixel_snap_cont = NodePath("ScrollContainer/CenterContainer/container/gpupixel_snaping")
-vertexcolor_batching_cont = NodePath("ScrollContainer/CenterContainer/container/vertex_color_batching")
+Paths/base_viewport_cont = null
+Paths/strech_mode_cont = null
+Paths/strech_aspect_cont = null
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/status/Status"]
 anchor_right = 1.0
@@ -71,14 +67,14 @@ anchor_bottom = 1.0
 scroll_horizontal_enabled = false
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer"]
-margin_right = 292.0
-margin_bottom = 694.0
+margin_right = 280.0
+margin_bottom = 763.0
 size_flags_horizontal = 3
 
 [node name="container" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer"]
-margin_left = 24.0
-margin_right = 268.0
-margin_bottom = 694.0
+margin_left = 18.0
+margin_right = 262.0
+margin_bottom = 763.0
 custom_constants/separation = 20
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
@@ -95,10 +91,53 @@ custom_fonts/font = ExtResource( 2 )
 text = "LookUp Project Settings"
 align = 1
 
-[node name="base_viewport" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+[node name="base_size" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
 margin_top = 59.0
 margin_right = 244.0
-margin_bottom = 151.0
+margin_bottom = 83.0
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_size"]
+margin_top = 5.0
+margin_right = 60.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 2 )
+text = "Base Size:"
+
+[node name="base_x" type="SpinBox" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_size"]
+margin_left = 64.0
+margin_right = 138.0
+margin_bottom = 24.0
+max_value = 2048.0
+allow_greater = true
+align = 2
+prefix = "x:"
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_size"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 142.0
+margin_right = 157.0
+margin_bottom = 24.0
+custom_constants/separation = 15
+
+[node name="base_y" type="SpinBox" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_size"]
+margin_left = 161.0
+margin_right = 235.0
+margin_bottom = 24.0
+max_value = 2048.0
+allow_greater = true
+align = 2
+prefix = "y:"
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 103.0
+margin_right = 244.0
+margin_bottom = 108.0
+custom_constants/separation = 5
+
+[node name="base_viewport" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
+margin_top = 128.0
+margin_right = 244.0
+margin_bottom = 220.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/base_viewport"]
 margin_right = 244.0
@@ -136,9 +175,9 @@ valign = 1
 autowrap = true
 
 [node name="strech_mode" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
-margin_top = 171.0
+margin_top = 240.0
 margin_right = 244.0
-margin_bottom = 263.0
+margin_bottom = 332.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_mode"]
 margin_right = 244.0
@@ -176,9 +215,9 @@ valign = 1
 autowrap = true
 
 [node name="strech_aspect" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
-margin_top = 283.0
+margin_top = 352.0
 margin_right = 244.0
-margin_bottom = 375.0
+margin_bottom = 444.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/strech_aspect"]
 margin_right = 244.0
@@ -216,9 +255,9 @@ valign = 1
 autowrap = true
 
 [node name="handheld" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
-margin_top = 395.0
+margin_top = 464.0
 margin_right = 244.0
-margin_bottom = 504.0
+margin_bottom = 573.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/handheld"]
 margin_right = 244.0
@@ -256,9 +295,9 @@ valign = 1
 autowrap = true
 
 [node name="gpupixel_snaping" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
-margin_top = 524.0
+margin_top = 593.0
 margin_right = 244.0
-margin_bottom = 599.0
+margin_bottom = 668.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/gpupixel_snaping"]
 margin_right = 244.0
@@ -293,9 +332,9 @@ valign = 1
 autowrap = true
 
 [node name="vertex_color_batching" type="VBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container"]
-margin_top = 619.0
+margin_top = 688.0
 margin_right = 244.0
-margin_bottom = 694.0
+margin_bottom = 763.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/status/Status/ScrollContainer/CenterContainer/container/vertex_color_batching"]
 margin_right = 244.0
@@ -333,6 +372,7 @@ valign = 1
 autowrap = true
 
 [node name="Emulate" type="Tabs" parent="VBoxContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
