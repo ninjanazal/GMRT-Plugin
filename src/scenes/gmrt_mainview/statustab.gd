@@ -1,60 +1,12 @@
 tool
 extends Control
 
-# - - - - - - - - - - - - - - - -
-# Class Status Entry
-class StatusEntry:
-	var _ref: Control = null;
-	var _btn: Button = null;
-
-	# Constructor
-	# @baseRef {Control}: Target Status base object
-	func _init(baseRef: Control):
-		_ref = baseRef;
-		__find_button_on__(_ref);
-
-	# Defines the button press state
-	# @val {bool}: Button press state
-	func set_button_pressed(val: bool, disable_on_positive: bool = true):
-		if(_btn != null):
-			_btn.pressed = val;
-			
-			if(disable_on_positive): _btn.disabled = val;
-			else: _btn.disabled = false;
-			
-			_btn.self_modulate =\
-				Color("a2ffa1") if val else Color.white;
-
-	# Connects the action button to a target callback
-	# @target {Object}: Callable object
-	# @funcName {String}: Call function namea
-	func connect_pressed(target: Object, funcName: String):
-		if(_btn != null && !_btn.is_connected("pressed", target, funcName)):
-			_btn.connect("pressed", target, funcName);
-	
-	# Disconnects the action button to a target callback
-	# @target {object}: Callable object
-	# @funcName {String}: Call function name
-	func disconnect_pressed(target: Object, funcName: String):
-		if(_btn != null && _btn.is_connected("pressed", target, funcName)):
-			_btn.disconnect("pressed", target, funcName);
-		
-	func __find_button_on__(root: Node):
-		for child in root.get_children():
-			if(child is Button):
-				_btn = child;
-				return;
-			if(child.get_child_count() != 0):
-				__find_button_on__(child);
-# - - - - - - - - - - - - - - - -
-
-
-export (NodePath) var base_viewport_cont = null;
-export (NodePath) var strech_mode_cont = null;
-export (NodePath) var strech_aspect_cont = null;
-export (NodePath) var handheld_cont = null;
-export (NodePath) var gpupixel_snap_cont = null;
-export (NodePath) var vertexcolor_batching_cont = null;
+var base_viewport_cont: NodePath = "";
+var strech_mode_cont: NodePath = "";
+var strech_aspect_cont: NodePath = "";
+var handheld_cont: NodePath = "";
+var gpupixel_snap_cont: NodePath = "";
+var vertexcolor_batching_cont: NodePath = "";
 
 
 var _elms : Dictionary = {
@@ -84,6 +36,11 @@ func _exit_tree():
 		_elms[_elms.keys()[i]] = null;
 # - - - - - - - - - - - - - - - -
 
+
+# ==================== ====================
+# PRIVATE
+# ==================== ====================
+
 # - - - - - - - - - - - - - - - -
 # Validations
 func _eval_project_state():
@@ -93,6 +50,7 @@ func _eval_project_state():
 	_evel_handheld();
 	_eval_gpupixelsnap();
 	_eval_vertecolorbatching();
+
 
 func _eval_viewport_size():
 	var h = ProjectSettings.get_setting("display/window/size/height");
@@ -119,6 +77,8 @@ func _eval_vertecolorbatching():
 	_elms.vertexcolorbatching.set_button_pressed(
 		ProjectSettings.get_setting("rendering/batching/parameters/colored_vertex_format_threshold") == 0
 	);
+
+
 # - - - - - - - - - - - - - - - -
 
 # - - - - - - - - - - - - - - - -
@@ -151,7 +111,8 @@ func _clear_connections():
 # - - - - - - - - - - - - - - - -
 
 # On project settings change callback function
-func _on_project_settings_changed(): _eval_project_state();
+func _on_project_settings_changed():
+	_eval_project_state();
 
 # On viewport action button press callback
 func _on_viewport_press():
@@ -185,3 +146,47 @@ func _on_vertexcolorbatching_press():
 		"rendering/batching/parameters/colored_vertex_format_threshold",
 		0
 	);
+
+
+
+# ==================== ====================
+# GODOT API Virtuals
+# ==================== ====================
+
+
+func _get_property_list():
+	return [
+	{ "name" : "Paths/base_viewport_cont", 	"type" : TYPE_NODE_PATH },
+	{ "name" : "Paths/strech_mode_cont", 	"type" : TYPE_NODE_PATH },
+	{ "name" : "Paths/strech_aspect_cont", 	"type" : TYPE_NODE_PATH },
+	{ "name" : "Paths/handheld_cont",		"type" : TYPE_NODE_PATH },
+	{ "name" : "Paths/gpupixel_snap_cont" ,	"type" : TYPE_NODE_PATH },
+	{ "name" : "Paths/vertexcolor_batching_cont", "type" : TYPE_NODE_PATH}
+	];
+
+
+func _set(property, value):
+	var value_set = true;
+	match property:
+		"Paths/base_viewport_cont": base_viewport_cont = value;	
+		"Paths/strech_mode_cont": strech_mode_cont = value;
+		"Paths/strech_aspect_cont": strech_aspect_cont = value;
+		"Paths/handheld_cont": handheld_cont = value;
+		"Paths/gpupixel_snap_cont": gpupixel_snap_cont = value;
+		"Paths/vertexcolor_batching_cont": vertexcolor_batching_cont = value;
+		_:
+			value_set = false;
+
+	return value_set;
+
+
+func _get(property):
+	var value = null;
+	match property:
+		"Paths/base_viewport_cont": value = base_viewport_cont;
+		"Paths/strech_mode_cont": value = strech_mode_cont;
+		"Paths/strech_aspect_cont": value = strech_aspect_cont;
+		"Paths/handheld_cont": value = handheld_cont;
+		"Paths/gpupixel_snap_cont": value = gpupixel_snap_cont;
+		"Paths/vertexcolor_batching_cont": value = vertexcolor_batching_cont;
+	return value;

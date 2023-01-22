@@ -2,36 +2,23 @@ tool
 extends Node
 
 # - - - - - - - - - - - - - - -
-enum CONDITIONTYPE {  TYPE_BOOL = 1, TYPE_INT, TYPE_REAL, TYPE_STRING, TYPE_LAYOUT }
-
-# - - - - - - - - - - - - - - -
 enum LAYOUT_TYPE { DEFAULT, DESKTOP, MOBILE, MOBILE_RIGHT, MOBILE_LEFT}
 
 # Base project view size
 var BASE_SIZE: Vector2 = Vector2(512, 512);
 
 
-var _condition_list
+var _curr_layout: int = LAYOUT_TYPE.DEFAULT;
+
 var _current_size : Vector2 = Vector2.ZERO;
 var _registed_scalers : Array = [];
 
 
-# Regists a scale animation
-# @player {ScaleAnimation}: Animation player
-func regist_scale_animation(player: ScaleAnimation):
-	if(_registed_scalers.has(player)): return;
-	_registed_scalers.append(player);
-	
-	var tmp :float = _current_size.x / _current_size.y;
-	player.on_viewsize_change(tmp);
+# ==================== ====================
+# GODOT API Override
+# ==================== ====================
 
-# Unregists a scale animation
-#
-func unregist_scale_animation(player : ScaleAnimation):
-	if(!_registed_scalers.has(player)): return;
-	_registed_scalers.erase(player);
-
-
+# - - - - - - - - - - - - - - -
 func _enter_tree():
 	if(Engine.is_editor_hint()):
 		#ignore-warning:return_value_discarded
@@ -43,6 +30,43 @@ func _enter_tree():
 		_on_viewsize_change();
 
 
+# ==================== ====================
+# PUBLIC
+# ==================== ====================
+
+# - - - - - - - - - - - - - - -
+# Regists a scale animation
+# @player {ScaleAnimation}: Animation player
+func regist_scale_animation(player: ScaleAnimation):
+	if(_registed_scalers.has(player)): return;
+	_registed_scalers.append(player);
+	
+	var tmp :float = _current_size.x / _current_size.y;
+	player.change_layout_to(_curr_layout);
+	player.on_viewsize_change(tmp);
+
+
+# - - - - - - - - - - - - - - -
+# Unregists a scale animation
+#
+func unregist_scale_animation(player : ScaleAnimation):
+	if(!_registed_scalers.has(player)): return;
+	_registed_scalers.erase(player);
+
+
+# - - - - - - - - - - - - - - -
+func set_layout(layout: int):
+	_curr_layout = layout;
+	for scaler in _registed_scalers:
+		scaler.change_layout_to(layout);
+		_on_viewsize_change();
+
+
+# ==================== ====================
+# PRIVATE
+# ==================== ====================
+
+# - - - - - - - - - - - - - - -
 func _on_viewsize_change():
 	var rootView = get_tree().root as Viewport;
 	_current_size = rootView.get_size_override();
@@ -56,8 +80,11 @@ func _call_size_change(size: Vector2):
 	for callable in _registed_scalers:
 		callable.on_viewsize_change(tmp);
 
+
+
+
 # ==================== ====================
-# TOOL RELATED
+# TOOL
 # ==================== ====================
 var _editor_plug  = null;
 
@@ -73,3 +100,24 @@ func _on_projectsettings_change():
 	);
 
 	_call_size_change(_current_size);
+
+
+
+func _get_property_list():
+	return [{
+		"name" : "base_size",
+		"type" : TYPE_VECTOR2,
+		"usage" : PROPERTY_USAGE_STORAGE
+	}];
+func _get(property):
+	var value = null;
+	match property:
+		"base_size": value = BASE_SIZE;
+	return value;
+
+func _set(property, value):
+	var value_set = true;
+	match property:
+		"base_size": BASE_SIZE = value;
+		_: value_set = false;
+	return value_set;

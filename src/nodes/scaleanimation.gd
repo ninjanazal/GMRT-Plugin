@@ -5,12 +5,9 @@ class_name ScaleAnimation, "res://addons/GMRT-Plugin/assets/icons/ToolScale.png"
 # - - - - - - - - - - - - - - -
 # Existing coditions for trigger animation change
 # Expected structure for each element
-# {"name":String, "value": Value, "animation": String}
+# {"Laytout": int(Enum), "animation": String}
 var conditions: Array = [];
 
-
-# - - - - - - - - - - - - - - -
-var _values : Dictionary = { };
 
 
 # ==================== ====================
@@ -41,15 +38,22 @@ func _exit_tree():
 
 
 # ==================== ====================
-# PUBLIC FUNCTIONS
+# PUBLIC
 # ==================== ====================
 
 
+# - - - - - - - - - - - - - - -
 # on View size change callback function
 # This is used as a registed function on the GMRT singleton
 func on_viewsize_change(ratio: float):
 	seek(ratio, true);
 
+
+# - - - - - - - - - - - - - - -
+func change_layout_to(layout: int):
+	for cond in conditions:
+		if (cond.layout == layout && has_animation(cond.animation)):
+			assigned_animation = cond.animation;
 
 
 # - - - - - - - - - - - - - - -
@@ -57,8 +61,7 @@ func on_viewsize_change(ratio: float):
 # Used by the inspector
 func create_condition():
 	conditions.append( {
-			"name" : "", "type" : Gmrtcore.CONDITIONTYPE.TYPE_BOOL,
-			"value" : "0", "animation" : ""
+			"layout" : Gmrtcore.LAYOUT_TYPE.DEFAULT, "animation" : "DEFAULT"
 		});
 	property_list_changed_notify();
 
@@ -87,7 +90,7 @@ func clear_childs():
 
 
 # ==================== ====================
-# PRIVATE FUNCTIONS
+# PRIVATE
 # ==================== ====================
 
 
@@ -127,6 +130,7 @@ func __generate_random_color()-> Color:
 	return Color(col[0], col[1], col[2], 1.0);
 
 
+
 # ==================== ====================
 # GODOT VIRTUAL FUNCTIONS
 # ==================== ====================
@@ -155,23 +159,14 @@ func _get_property_list():
 				"type" : TYPE_NIL,
 				"usage" : PROPERTY_USAGE_GROUP,
 				"hint_string" : "condition_%s_" % str(i)
-			},
-			{ "name" : "condition_%s_name" % str(i), "type" : TYPE_STRING },
-			{
-				"name" : "condition_%s_type" % str(i),
-				"type" : TYPE_INT,
-				"hint" : PROPERTY_HINT_ENUM,
-				"hint_string" : ",".join(Gmrtcore.CONDITIONTYPE.keys())
 			}]);
-
-		var conditionType: Dictionary = {"name" : "condition_%s_value" % str(i), "type" : conditions[i].type + 1};
-		if(conditionType.type == Gmrtcore.CONDITIONTYPE.TYPE_LAYOUT):
-			conditionType.type = TYPE_INT;
-			conditionType["hint"] = PROPERTY_HINT_ENUM;
-			conditionType["hint_string"] = ",".join(Gmrtcore.LAYOUT_TYPE.keys());
-		
 		properties.append_array([
-			conditionType,
+			{ 
+				"name" : "condition_%s_layout" % str(i),
+				"type" : TYPE_INT,
+				"hint"  : PROPERTY_HINT_ENUM,
+				"hint_string" : ",".join(Gmrtcore.LAYOUT_TYPE.keys())
+			},
 			{ "name" : "condition_%s_animation" % str(i), "type" : TYPE_STRING },
 			{ "name" : "condition_%s_remove" % str(i), "type" : TYPE_BOOL}
 		]);
@@ -193,8 +188,6 @@ func _set(property, value):
 			create_condition();
 				
 		conditions[int(_split[1])][_split[2]] = value;
-		if(_split[2] == "type"):
-			property_list_changed_notify();
 		return true;
 	
 	match property:
