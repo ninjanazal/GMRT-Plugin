@@ -2,16 +2,14 @@ tool
 extends Node
 
 # - - - - - - - - - - - - - - -
-enum CONDITIONTYPE {  TYPE_BOOL = 1, TYPE_INT, TYPE_REAL, TYPE_STRING, TYPE_LAYOUT }
-
-# - - - - - - - - - - - - - - -
 enum LAYOUT_TYPE { DEFAULT, DESKTOP, MOBILE, MOBILE_RIGHT, MOBILE_LEFT}
 
 # Base project view size
 var BASE_SIZE: Vector2 = Vector2(512, 512);
 
 
-var _condition_list
+var _curr_layout: int = LAYOUT_TYPE.DEFAULT;
+
 var _current_size : Vector2 = Vector2.ZERO;
 var _registed_scalers : Array = [];
 
@@ -44,6 +42,7 @@ func regist_scale_animation(player: ScaleAnimation):
 	_registed_scalers.append(player);
 	
 	var tmp :float = _current_size.x / _current_size.y;
+	player.change_layout_to(_curr_layout);
 	player.on_viewsize_change(tmp);
 
 
@@ -54,6 +53,13 @@ func unregist_scale_animation(player : ScaleAnimation):
 	if(!_registed_scalers.has(player)): return;
 	_registed_scalers.erase(player);
 
+
+# - - - - - - - - - - - - - - -
+func set_layout(layout: int):
+	_curr_layout = layout;
+	for scaler in _registed_scalers:
+		scaler.change_layout_to(layout);
+		_on_viewsize_change();
 
 
 # ==================== ====================

@@ -36,6 +36,11 @@ func _exit_tree():
 		_elms[_elms.keys()[i]] = null;
 # - - - - - - - - - - - - - - - -
 
+
+# ==================== ====================
+# PRIVATE
+# ==================== ====================
+
 # - - - - - - - - - - - - - - - -
 # Validations
 func _eval_project_state():
@@ -45,6 +50,7 @@ func _eval_project_state():
 	_evel_handheld();
 	_eval_gpupixelsnap();
 	_eval_vertecolorbatching();
+
 
 func _eval_viewport_size():
 	var h = ProjectSettings.get_setting("display/window/size/height");
@@ -71,6 +77,8 @@ func _eval_vertecolorbatching():
 	_elms.vertexcolorbatching.set_button_pressed(
 		ProjectSettings.get_setting("rendering/batching/parameters/colored_vertex_format_threshold") == 0
 	);
+
+
 # - - - - - - - - - - - - - - - -
 
 # - - - - - - - - - - - - - - - -
@@ -140,6 +148,12 @@ func _on_vertexcolorbatching_press():
 	);
 
 
+
+# ==================== ====================
+# GODOT API Virtuals
+# ==================== ====================
+
+
 func _get_property_list():
 	return [
 	{ "name" : "Paths/base_viewport_cont", 	"type" : TYPE_NODE_PATH },
@@ -154,15 +168,14 @@ func _get_property_list():
 func _set(property, value):
 	var value_set = true;
 	match property:
-		"Paths/base_viewport_cont": 
-			base_viewport_cont = value;
-			_elms.viewportSize = get_node_or_null(base_viewport_cont);
-		
-		"Paths/strech_mode_cont": value = strech_mode_cont;
-		"Paths/strech_aspect_cont": value = strech_aspect_cont;
-		"Paths/handheld_cont": value = handheld_cont;
-		"Paths/gpupixel_snap_cont": value = gpupixel_snap_cont;
-		"Paths/vertexcolor_batching_cont": value = vertexcolor_batching_cont;
+		"Paths/base_viewport_cont": base_viewport_cont = value;	
+		"Paths/strech_mode_cont": strech_mode_cont = value;
+		"Paths/strech_aspect_cont": strech_aspect_cont = value;
+		"Paths/handheld_cont": handheld_cont = value;
+		"Paths/gpupixel_snap_cont": gpupixel_snap_cont = value;
+		"Paths/vertexcolor_batching_cont": vertexcolor_batching_cont = value;
+		_:
+			value_set = false;
 
 	return value_set;
 
